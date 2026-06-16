@@ -1,0 +1,72 @@
+{
+  "pdf_count": 4,
+  "success_count": 4,
+  "failure_count": 0,
+  "summary_csv": "trading_activity_batch_summary.csv",
+  "items": [
+    {
+      "pdf": "2026-04-01.pdf",
+      "status": "success",
+      "output_csv": "2026-04-01_securities_trading_activity_table.csv",
+      "qa_json_file": "2026-04-01_trading_activity_qa.json",
+      "source_page": 3,
+      "rows": 2,
+      "cols": 18,
+      "completeness": 0.9167,
+      "malformed_rows": 0,
+      "matched_required_columns": 18,
+      "quantity_total": 103.0,
+      "gross_amount_total": -6910.0,
+      "net_amount_total": -6910.15,
+      "error": ""
+    },
+    {
+      "pdf": "2026-04-02.pdf",
+      "status": "success",
+      "output_csv": "2026-04-02_securities_trading_activity_table.csv",
+      "qa_json_file": "2026-04-02_trading_activity_qa.json",
+      "source_page": 3,
+      "rows": 2,
+      "cols": 18,
+      "completeness": 0.9444,
+      "malformed_rows": 0,
+      "matched_required_columns": 18,
+      "quantity_total": 75.0,
+      "gross_amount_total": -12970.0,
+      "net_amount_total": -12970.0,
+      "error": ""
+    },
+    {
+      "pdf": "2026-04-06.pdf",
+      "status": "success",
+      "output_csv": "2026-04-06_securities_trading_activity_table.csv",
+      "qa_json_file": "2026-04-06_trading_activity_qa.json",
+      "source_page": 3,
+      "rows": 1,
+      "cols": 18,
+      "completeness": 0.9444,
+      "malformed_rows": 0,
+      "matched_required_columns": 18,
+      "quantity_total": -75.0,
+      "gross_amount_total": 13295.25,
+      "net_amount_total": 13294.96,
+      "error": ""
+    },
+    {
+      "pdf": "2026-04-07.pdf",
+      "status": "success",
+      "output_csv": "2026-04-07_securities_trading_activity_table.csv",
+      "qa_json_file": "2026-04-07_trading_activity_qa.json",
+      "source_page": 3,
+      "rows": 5,
+      "cols": 18,
+      "completeness": 0.9444,
+      "malformed_rows": 0,
+      "matched_required_columns": 18,
+      "quantity_total": 0.0,
+      "gross_amount_total": 116.27000000000044,
+      "net_amount_total": 115.61999999999898,
+      "error": ""
+    }
+  ]
+}

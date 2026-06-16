@@ -1,0 +1,29 @@
+python -m venv myenv
+
+# for windows
+myenv\Scripts\Activate.ps1
+
+# for linux and macOS
+source myenv/bin/activate
+
+
+python -c "import sys; print(sys.prefix)"
+
+pip install -r requirements.txt
+
+eval `ssh-agent -s`
+ssh-add <path to your private key>
+ssh -T git@atom-git.hurner.com
+
+The backticks (`) are used in Unix-like shells to capture the output of a command. When you run ssh-agent -s, it outputs commands to set environment variables that connect any SSH operations in the current shell session to the ssh-agent you just started.
+
+git config user.name "inrt"
+git config user.email "inrt@email.com"
+git rm -r --cached myenv
+
+# Run single PDF parser for tradeconfirmation folder (explicit PDF file)
+py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --pdf 2026-04-07.pdf --output-dir .\outputfolder
+
+# Run single PDF parser for tradeconfirmation folder (exactly one PDF in folder)
+py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --output-dir .\outputfolder
+here1

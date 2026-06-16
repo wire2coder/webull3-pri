@@ -1,0 +1,10 @@
+.vscode/
+myenv/
+.venv/
+*.dat.gz
+*.gz
+*.dct
+__pycache__/
+*.shtml
+tradeconfirmation/
+outputfolder/
