@@ -4,7 +4,7 @@ python -m venv myenv
 myenv\Scripts\Activate.ps1
 
 # for linux and macOS
-source myenv/bin/activate
+source .venv/bin/activate
 
 
 python -c "import sys; print(sys.prefix)"
@@ -24,6 +24,12 @@ git rm -r --cached myenv
 # Run single PDF parser for tradeconfirmation folder (explicit PDF file)
 py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --pdf 2026-04-07.pdf --output-dir .\outputfolder
 
+# for Windows11
 # Run single PDF parser for tradeconfirmation folder (exactly one PDF in folder)
 py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --output-dir .\outputfolder
+
+
+# for Linux WSL in Windows 11
+source .venv/bin/activate
+python3 parse_tradeconfirmation_single.py --tradeconfirmation-dir ./tradeconfirmation --output-dir ./outputfolder
 here1

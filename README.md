@@ -79,6 +79,25 @@ The parser normalizes whitespace around slashes so these still map to the requir
 `Buy/Sell` and `Fee/Tax` columns. If strict mode errors persist, run once with
 `--non-strict` to inspect the CSV output and confirm where the values landed.
 
+## About Zone.Identifier files (Windows "Mark of the Web")
+
+When you download a PDF statement from the Webull Tax Center (`https://www.webull.com/center/tax`)
+using a Windows browser, Windows automatically attaches a hidden alternate data stream to the file
+called `Zone.Identifier`. This stream contains:
+
+```
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://www.webull.com/center/tax
+HostUrl=https://ustrade-edoc.webullfinance.com/edoc/v1/...
+```
+
+- **ZoneId=3** means "Internet Zone" — i.e. the file was downloaded from the web
+- This is a built-in Windows security feature ("Mark of the Web") that warns you before opening
+  downloaded files
+- On WSL/Linux, you may see the original download URL embedded in the file metadata
+- This tool **does not** generate Zone.Identifier data — it only processes the PDF content
+
 ## Generated files
 
 Single run creates:
