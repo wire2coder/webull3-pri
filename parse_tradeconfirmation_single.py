@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import shutil
 from pathlib import Path
 
 from extract_trading_activity import REQUIRED_COLUMNS, parse_single_tradeconfirmation_pdf
@@ -33,6 +34,11 @@ def _parse_args() -> argparse.Namespace:
         "--qa-dir",
         default=None,
         help="Directory for QA JSON output. Default: output directory.",
+    )
+    parser.add_argument(
+        "--done-dir",
+        default="done1",
+        help="Directory where the source PDF is moved after a successful parse. Default: done1.",
     )
     parser.add_argument(
         "--start-marker",
@@ -77,7 +83,15 @@ def _parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = _parse_args()
-    logging.basicConfig(level=getattr(logging, args.log_level), format="%(levelname)s: %(message)s")
+    done_dir = Path(args.done_dir)
+    done_dir.mkdir(parents=True, exist_ok=True)
+    log_path = done_dir / "parse_tradeconfirmation.log"
+    logging.basicConfig(
+        level=getattr(logging, args.log_level),
+        format="%(levelname)s: %(message)s",
+        handlers=[logging.StreamHandler(), logging.FileHandler(log_path, encoding="utf-8")],
+    )
+    LOGGER.info("Log file: %s", log_path)
 
     try:
         df, qa_report = parse_single_tradeconfirmation_pdf(
@@ -106,6 +120,12 @@ def main() -> int:
         LOGGER.info("Matched required columns: %s", qa_report["matched_required_columns"])
 
         print(df[REQUIRED_COLUMNS].head(5).to_string(index=False))
+        source_pdf = Path(qa_report["source_pdf"])
+        destination_pdf = done_dir / source_pdf.name
+        if destination_pdf.exists():
+            raise FileExistsError(f"Destination PDF already exists: {destination_pdf}")
+        shutil.move(str(source_pdf), str(destination_pdf))
+        LOGGER.info("Moved PDF: %s -> %s", source_pdf, destination_pdf)
         return 0
     except Exception as exc:
         LOGGER.error("Single tradeconfirmation extraction failed: %s", exc)

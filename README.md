@@ -18,8 +18,16 @@ If you prefer, you can replace `py -3` with `python` in all commands, as long as
 
 ## 1) Install dependencies
 
+Windows:
+
 ```powershell
-py -3 -m pip install pandas pdfplumber
+py -3 -m pip install -r requirements.txt
+```
+
+macOS / Linux:
+
+```bash
+python3 -m pip install -r requirements.txt
 ```
 
 ## 2) Run one PDF (by date)
@@ -39,13 +47,47 @@ py -3 extract_trading_activity.py --pdf 2026-04-07.pdf --input-dir . --output-di
 If there is exactly one PDF in `tradeconfirmation`, run:
 
 ```powershell
-py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --output-dir .
+py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --output-dir .\outputfolder
 ```
 
 If there are multiple PDFs in `tradeconfirmation`, specify the file:
 
 ```powershell
-py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --pdf 2026-04-07.pdf --output-dir .
+py -3 parse_tradeconfirmation_single.py --tradeconfirmation-dir .\tradeconfirmation --pdf 2026-04-07.pdf --output-dir .\outputfolder
+```
+
+macOS / Linux:
+
+```bash
+python3 parse_tradeconfirmation_single.py --tradeconfirmation-dir ./tradeconfirmation --output-dir ./outputfolder
+```
+
+After a successful single-PDF parse, the source PDF is moved automatically to
+`done1`, and parser messages are appended to `parse_tradeconfirmation.log` there.
+
+## 3c) Required folders
+
+- `wait1` — PDFs waiting to be processed
+- `tradeconfirmation` — drop one PDF here to parse (single-file runner)
+- `outputfolder` — CSV and QA JSON output
+- `done1` — processed PDFs and single-run parser logs
+
+The move scripts create `tradeconfirmation` and `done1` if they are missing.
+
+## 3d) Count files in tradeconfirmation and move them to done1
+
+Use the move scripts for files that were not processed by the single-PDF runner.
+
+macOS / Linux:
+
+```bash
+./move_to_done1.sh
+```
+
+Windows 11 (PowerShell):
+
+```powershell
+.\move_to_done1.ps1
 ```
 
 ## 4) Run all PDFs in batch mode
@@ -104,7 +146,7 @@ Single run creates:
 - `<date>_securities_trading_activity_table.csv`
 - `<date>_trading_activity_qa.json` (unless `--no-qa-json`)
 
-Single run from `tradeconfirmation` creates:
+Single run from `tradeconfirmation` creates in `outputfolder`:
 - `<pdf_stem>_securities_trading_activity_table.csv`
 - `<pdf_stem>_trading_activity_qa.json` (unless `--no-qa-json`)
 
